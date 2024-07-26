@@ -1,6 +1,5 @@
 package com.axterior.utils;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,26 +7,18 @@ import java.util.Properties;
 
 public class PropertyReader {
 
-    protected static Properties testRunProperties;
+    static Properties properties = new Properties();
 
-    public static void loadTestRunProperties() {
-        File propFile = new File("src/test/resources/testrun.properties");
-        FileInputStream fis = null;
+    public static String readProperties(String key) {
+
         try {
-            fis = new FileInputStream(propFile);
+            FileInputStream fis = new FileInputStream("src/test/resources/testrun.properties");
+            properties.load(fis);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            return;
-        }
-        testRunProperties = new Properties();
-        try {
-            testRunProperties.load(fis);
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            System.out.println("IO Exception.");
+            throw new RuntimeException(e);
         }
-    }
-
-    public static String getTestRunProperty(String key) {
-        return (String) testRunProperties.get(key);
+        return properties.getProperty(key);
     }
 }
