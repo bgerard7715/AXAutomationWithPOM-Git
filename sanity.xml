@@ -1,7 +1,8 @@
-<suite name="softwaretestingmaterial">
-    <test name="testngTest">
+<suite name="Module: Jobs">
+    <test name="Sanity Test for Jobs Module">
         <classes>
-            <class name="com.axterior.jobs.JobsPageTest" />
+            <class name="com.axterior.jobs.CreateJobWithAllAvailableFieldsTest" />
+            <class name="com.axterior.jobs.CreateJobWithOnlyRequiredFieldsTest"/>
         </classes>
     </test>
 </suite>

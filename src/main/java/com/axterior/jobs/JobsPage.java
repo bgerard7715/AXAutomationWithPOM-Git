@@ -37,7 +37,7 @@ public class JobsPage extends WebPage {
     @FindBy(css = "input[name='salary.maxSalary']")
     protected WebElement salaryMaxRange;
     @FindBy(css = "input[data-cy='officeAutocomplete'] + div > button")
-    protected WebElement office;
+    protected WebElement officeDropdown;
     @FindBy(css = "ul[role='listbox-hack'] > li")
     protected List<WebElement> listOfOffices;
     @FindBy(css = "input[data-cy='projectAutocomplete'] + div > button")
@@ -76,9 +76,9 @@ public class JobsPage extends WebPage {
         super(driver);
     }
 
-    public void createJobPost(String jobPost, String qualificationLevel, String employmentType, String department,
-                              String minSalary, String maxSalary, String officeLocation, String date,
-                              String recruiterName, String country, String cityName, String skill, String sampleText) {
+    public void createJobPostWithAllAvailableFields(String jobPost, String qualificationLevel, String employmentType, String department,
+                                                    String minSalary, String maxSalary, String officeLocation, String date,
+                                                    String recruiterName, String country, String cityName, String skill, String sampleText) {
         expandSideBarIcon.click();
         jobsModule.click();
         createButton.click();
@@ -93,13 +93,14 @@ public class JobsPage extends WebPage {
         chooseFromList(listOfDepartments, department);
         salaryMinRange.sendKeys(minSalary);
         salaryMaxRange.sendKeys(maxSalary);
-        office.click();
+        officeDropdown.click();
         chooseFromList(listOfOffices, officeLocation);
         projectDropdown.click();
         selectProject.click();
         targetDate.sendKeys(date);
         ((JavascriptExecutor) driver).executeScript("document.querySelector(\"div[aria-labelledby='Recruiter']\").scrollIntoView();");
         recruiterDropdown.click();
+        waitForVisibilityOfAllElements(listOfRecruiters);
         chooseFromList(listOfRecruiters, recruiterName);
         hiringManagerDropdown.click();
         selectHiringManager.click();
@@ -111,9 +112,35 @@ public class JobsPage extends WebPage {
         jobDescription.sendKeys(sampleText);
         saveButton.click();
         waitForVisibilityOfElement(toastElement);
-        getToastText();
+        toastText = toastElement.getText();
         pause(5);
 
+    }
+
+
+    public void createJobOnlyWithRequiredFields(String jobPost, String employmentType, String department,
+                                                String officeLocation, String date, String recruiterName) {
+        expandSideBarIcon.click();
+        jobsModule.click();
+        createButton.click();
+        jobTitleDropdown.click();
+        chooseFromList(listOfJobTitles, jobPost);
+        typeOfEmploymentDropdown.click();
+        waitForVisibilityOfAllElements(listOfEmploymentTypes);
+        chooseFromList(listOfEmploymentTypes, employmentType);
+        departmentDropdown.click();
+        chooseFromList(listOfDepartments, department);
+        officeDropdown.click();
+        chooseFromList(listOfOffices, officeLocation);
+        targetDate.sendKeys(date);
+        ((JavascriptExecutor) driver).executeScript("document.querySelector(\"div[aria-labelledby='Recruiter']\").scrollIntoView();");
+        recruiterDropdown.click();
+        waitForVisibilityOfAllElements(listOfRecruiters);
+        chooseFromList(listOfRecruiters, recruiterName);
+        saveButton.click();
+        waitForVisibilityOfElement(toastElement);
+        toastText = toastElement.getText();
+        pause(5);
     }
 
     public void chooseFromList(List<WebElement> list, String option) {
@@ -123,10 +150,5 @@ public class JobsPage extends WebPage {
                 break;
             }
         }
-    }
-
-    public String getToastText() {
-        toastText = toastElement.getText();
-        return toastText;
     }
 }
