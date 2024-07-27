@@ -143,6 +143,28 @@ public class JobsPage extends WebPage {
         pause(5);
     }
 
+
+    public void doNotCreateJobWithMissingRequiredFields(String jobPost, String employmentType, String department,
+                                                       String officeLocation, String date) {
+        expandSideBarIcon.click();
+        jobsModule.click();
+        createButton.click();
+        jobTitleDropdown.click();
+        chooseFromList(listOfJobTitles, jobPost);
+        typeOfEmploymentDropdown.click();
+        waitForVisibilityOfAllElements(listOfEmploymentTypes);
+        chooseFromList(listOfEmploymentTypes, employmentType);
+        departmentDropdown.click();
+        chooseFromList(listOfDepartments, department);
+        officeDropdown.click();
+        chooseFromList(listOfOffices, officeLocation);
+        targetDate.sendKeys(date);
+        saveButton.click();
+        waitForVisibilityOfElement(toastElement);
+        toastText = toastElement.getText();
+        pause(5);
+    }
+
     public void chooseFromList(List<WebElement> list, String option) {
         for(WebElement w : list) {
             if(w.getText().equalsIgnoreCase(option)) {
