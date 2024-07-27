@@ -3,6 +3,7 @@
         <classes>
             <class name="com.axterior.jobs.CreateJobWithAllAvailableFieldsTest" />
             <class name="com.axterior.jobs.CreateJobWithOnlyRequiredFieldsTest"/>
+            <class name="com.axterior.jobs.DoNotCreateJobWithMissingRequiredFieldsTest"/>
         </classes>
     </test>
 </suite>
