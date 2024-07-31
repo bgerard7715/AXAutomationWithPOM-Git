@@ -72,6 +72,10 @@ public class JobsPage extends WebPage {
     protected WebElement toastElement;
     @FindBy(css = "div[aria-label='Reset filters'] > button")
     protected WebElement resetFiltersButton;
+    @FindBy(xpath = "//div[contains(@class,'MuiCollapse-wrapperInner MuiCollapse-vertical')] / div / label")
+    protected List<WebElement> listOfAllFilters;
+    @FindBy(xpath = "//span[text()='Draft'] / parent::label / parent::div / label / span")
+    protected List<WebElement> listOfStatusFilters;
     @FindBy(xpath = "//span[text()='Draft']")
     protected WebElement draftFilter;
     @FindBy(xpath = "//span[text()='Open']")
@@ -80,6 +84,8 @@ public class JobsPage extends WebPage {
     protected WebElement closedFilter;
     @FindBy(css = "div[aria-label='Reset filters'] + button")
     protected WebElement applyFiltersButton;
+    @FindBy(xpath = "//div[contains(@class,'css-mz')] // div[1]")
+    protected WebElement totalNumberOfJobsFound;
     @FindBy(css = "tbody > tr")
     protected List<WebElement> listOfAllJobs;
     @FindBy(xpath = "//span[text()='Target date'] / following-sibling::div / div[1] / following-sibling::a")
@@ -90,6 +96,8 @@ public class JobsPage extends WebPage {
     protected WebElement deleteButton;
     @FindBy(xpath = "//button[text()='Yes, delete it']")
     protected WebElement confirmDeleteButton;
+    @FindBy(xpath = "//button[text()='Confirm']")
+    protected WebElement confirm;
     public String toastText;
 
     public JobsPage(WebDriver driver) {
@@ -108,8 +116,10 @@ public class JobsPage extends WebPage {
         waitForVisibilityOfAllElements(listOfQualificationLevel);
         chooseFromList(listOfQualificationLevel, qualificationLevel);
         typeOfEmploymentDropdown.click();
+        waitForVisibilityOfAllElements(listOfEmploymentTypes);
         chooseFromList(listOfEmploymentTypes, employmentType);
         departmentDropdown.click();
+        waitForVisibilityOfAllElements(listOfDepartments);
         chooseFromList(listOfDepartments, department);
         salaryMinRange.sendKeys(minSalary);
         salaryMaxRange.sendKeys(maxSalary);
@@ -182,6 +192,9 @@ public class JobsPage extends WebPage {
         saveButton.click();
         waitForVisibilityOfElement(toastElement);
         toastText = toastElement.getText();
+        expandSideBarIcon.click();
+        jobsModule.click();
+        confirm.click();
         pause(5);
     }
 
@@ -206,6 +219,34 @@ public class JobsPage extends WebPage {
         confirmDeleteButton.click();
         waitForVisibilityOfElement(toastElement);
         toastText = toastElement.getText();
+        pause(5);
+    }
+
+
+    public void searchJobByStatus(String status) {
+        expandSideBarIcon.click();
+        jobsModule.click();
+        pause(2);
+        resetFiltersButton.click();
+        waitForVisibilityOfAllElements(listOfStatusFilters);
+        chooseFromList(listOfStatusFilters, status);
+        applyFiltersButton.click();
+        pause(2);
+        System.out.println(totalNumberOfJobsFound.getText());
+        pause(5);
+    }
+
+
+    public void searchJobByDepartment(String department) {
+        expandSideBarIcon.click();
+        jobsModule.click();
+        pause(2);
+        resetFiltersButton.click();
+        waitForVisibilityOfAllElements(listOfAllFilters);
+        chooseFromList(listOfAllFilters, department);
+        applyFiltersButton.click();
+        pause(2);
+        System.out.println(totalNumberOfJobsFound.getText());
         pause(5);
     }
 

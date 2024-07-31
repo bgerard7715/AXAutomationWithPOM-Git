@@ -44,7 +44,7 @@ public class JobsPageTest extends BaseTest {
 
 
     @DataProvider
-    public Object[][] dataForDeleteJobTest() {
+    private Object[][] dataForDeleteJobTest() {
         Object[][] data = {{"Accountant"}};
         return data;
     }
@@ -72,5 +72,29 @@ public class JobsPageTest extends BaseTest {
         Assert.assertTrue(jobsPage.toastText.contains("form cannot be completed"));
         System.out.println("\nResult for Test(doNotCreateJobWithMissingRequiredFieldsTest): "
                 + jobsPage.toastText +"(Missing required fields)\n");
+    }
+
+
+    @DataProvider
+    private Object[][] dataForSearchJobByStatusTest(){
+        Object[][] data = {{"Draft"}, {"Open"}, {"Closed"}, {"Archived"}};
+        return data;
+    }
+    @Test(priority = 5, dataProvider = "dataForSearchJobByStatusTest")
+    public void searchJobByStatusTest(String status) {
+        JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
+        jobsPage.searchJobByStatus(status);
+    }
+
+
+    @DataProvider
+    private Object[][] dataForSearchJobByDepartmentTest() {
+        Object[][] data = {{"Accounting"}, {"Human Resources"}, {"Legal"}, {"Devops"}, {"Quality Assurance"}};
+        return data;
+    }
+    @Test(priority = 6, dataProvider = "dataForSearchJobByDepartmentTest")
+    public void searchJobByDepartment(String department) {
+        JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
+        jobsPage.searchJobByDepartment(department);
     }
 }
