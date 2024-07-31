@@ -70,6 +70,26 @@ public class JobsPage extends WebPage {
     protected WebElement saveButton;
     @FindBy(css = "div[class='Toastify'] > div > div > div > div > div > div > p")
     protected WebElement toastElement;
+    @FindBy(css = "div[aria-label='Reset filters'] > button")
+    protected WebElement resetFiltersButton;
+    @FindBy(xpath = "//span[text()='Draft']")
+    protected WebElement draftFilter;
+    @FindBy(xpath = "//span[text()='Open']")
+    protected WebElement openFilter;
+    @FindBy(xpath = "//span[text()='Closed']")
+    protected WebElement closedFilter;
+    @FindBy(css = "div[aria-label='Reset filters'] + button")
+    protected WebElement applyFiltersButton;
+    @FindBy(css = "tbody > tr")
+    protected List<WebElement> listOfAllJobs;
+    @FindBy(xpath = "//span[text()='Target date'] / following-sibling::div / div[1] / following-sibling::a")
+    protected WebElement arrowButtonToOpenJob;
+    @FindBy(xpath = "//button[text()='Actions']")
+    protected WebElement actionsDropdown;
+    @FindBy(xpath = "//li[text()='Delete']")
+    protected WebElement deleteButton;
+    @FindBy(xpath = "//button[text()='Yes, delete it']")
+    protected WebElement confirmDeleteButton;
     public String toastText;
 
     public JobsPage(WebDriver driver) {
@@ -165,9 +185,33 @@ public class JobsPage extends WebPage {
         pause(5);
     }
 
+
+    public void deleteJob(String jobName) {
+        expandSideBarIcon.click();
+        jobsModule.click();
+        pause(2);
+        waitForClickabilityOfElement(resetFiltersButton);
+        resetFiltersButton.click();
+        waitForClickabilityOfElement(draftFilter);
+        draftFilter.click();
+        openFilter.click();
+        closedFilter.click();
+        applyFiltersButton.click();
+        pause(2);
+        waitForVisibilityOfAllElements(listOfAllJobs);
+        chooseFromList(listOfAllJobs, jobName);
+        arrowButtonToOpenJob.click();
+        actionsDropdown.click();
+        deleteButton.click();
+        confirmDeleteButton.click();
+        waitForVisibilityOfElement(toastElement);
+        toastText = toastElement.getText();
+        pause(5);
+    }
+
     public void chooseFromList(List<WebElement> list, String option) {
         for(WebElement w : list) {
-            if(w.getText().equalsIgnoreCase(option)) {
+            if(w.getText().equalsIgnoreCase(option) || w.getText().contains(option)) {
                 w.click();
                 break;
             }
