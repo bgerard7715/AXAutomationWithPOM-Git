@@ -84,6 +84,7 @@ public class JobsPageTest extends BaseTest {
     public void searchJobByStatusTest(String status) {
         JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
         jobsPage.searchJobByStatus(status);
+        Assert.assertTrue(jobsPage.totalNumberOfJobsFound.getText().contains("according to filters"));
     }
 
 
@@ -96,5 +97,32 @@ public class JobsPageTest extends BaseTest {
     public void searchJobByDepartment(String department) {
         JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
         jobsPage.searchJobByDepartment(department);
+        Assert.assertTrue(jobsPage.totalNumberOfJobsFound.getText().contains("according to filters"));
+    }
+
+
+    @DataProvider
+    private Object[][] dataForSearchJobByProjectNameTest() {
+        Object[][] data = {{"Soft Solutions Inc."}};
+        return data;
+    }
+    @Test(priority = 7, dataProvider = "dataForSearchJobByProjectNameTest")
+    public void searchJobByProjectNameTest(String projectName) {
+        JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
+        jobsPage.searchJobByProjectName(projectName);
+        Assert.assertTrue(jobsPage.totalNumberOfJobsFound.getText().contains("according to filters"));
+    }
+
+
+    @DataProvider
+    private Object[][] dataForSearchJobByRecruiterNameTest() {
+        Object[][] data = {{"Sandra Bullocks"}, {"John Mird"}, {"Sylvester Stallone"}};
+        return data;
+    }
+    @Test(priority = 8, dataProvider = "dataForSearchJobByRecruiterNameTest")
+    public void searchJobByRecruiterNameTest(String recruiterName) {
+        JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
+        jobsPage.searchJobByRecruiterName(recruiterName);
+        Assert.assertTrue(jobsPage.totalNumberOfJobsFound.getText().contains("according to filters"));
     }
 }

@@ -25,7 +25,7 @@ public class BaseTest {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--incongnito");
             options.addArguments("--disable-popup-blocking");
-            options.addArguments("--start-maximized");
+//            options.addArguments("--start-maximized");
             driver = new ChromeDriver(options);
         }
 

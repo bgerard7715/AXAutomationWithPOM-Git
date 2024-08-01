@@ -232,7 +232,7 @@ public class JobsPage extends WebPage {
         chooseFromList(listOfStatusFilters, status);
         applyFiltersButton.click();
         pause(2);
-        System.out.println(totalNumberOfJobsFound.getText());
+        System.out.println("Search Results under searchJobByStatus Test, For " + status + " jobs: " + totalNumberOfJobsFound.getText() + "\n");
         pause(5);
     }
 
@@ -246,7 +246,35 @@ public class JobsPage extends WebPage {
         chooseFromList(listOfAllFilters, department);
         applyFiltersButton.click();
         pause(2);
-        System.out.println(totalNumberOfJobsFound.getText());
+        System.out.println("Search Results under searchJobByDepartment Test, For " + department + " department: " + totalNumberOfJobsFound.getText() + "\n");
+        pause(5);
+    }
+
+
+    public void searchJobByProjectName(String projectName) {
+        expandSideBarIcon.click();
+        jobsModule.click();
+        pause(2);
+        resetFiltersButton.click();
+        waitForVisibilityOfAllElements(listOfAllFilters);
+        chooseFromList(listOfAllFilters, projectName);
+        applyFiltersButton.click();
+        pause(2);
+        System.out.println("Search Results under searchJobByProjectName Test, For " + projectName + " project: " + totalNumberOfJobsFound.getText() + "\n");
+        pause(5);
+    }
+
+
+    public void searchJobByRecruiterName(String recruiterName) {
+        expandSideBarIcon.click();
+        jobsModule.click();
+        pause(2);
+        resetFiltersButton.click();
+        waitForVisibilityOfAllElements(listOfAllFilters);
+        chooseFromList(listOfAllFilters, recruiterName);
+        applyFiltersButton.click();
+        pause(2);
+        System.out.println("Search Results under searchJobByRecruiterName Test, For " + recruiterName + ": " + totalNumberOfJobsFound.getText() + "\n");
         pause(5);
     }
 
