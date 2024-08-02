@@ -23,7 +23,7 @@ public class JobsPageTest extends BaseTest {
         jobsPage.createJobPostWithAllAvailableFields(jobPost, qualificationLevel, employmentType, department, minSalary, maxSalary,
                 officeLocation, date, recruiterName, country, city, skill, sampleText);
         Assert.assertEquals(jobsPage.toastText, "Done! Job is created");
-        System.out.println("\nResult for Test(createJobTestWithAllAvailableFields): " + jobsPage.toastText + "\n");
+        System.out.println("Result for Test(createJobTestWithAllAvailableFields): " + jobsPage.toastText + "\n");
     }
 
 
@@ -39,7 +39,7 @@ public class JobsPageTest extends BaseTest {
         JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
         jobsPage.createJobOnlyWithRequiredFields(jobPost, employmentType, department, officeLocation, date, recruiterName);
         Assert.assertEquals(jobsPage.toastText, "Done! Job is created");
-        System.out.println("\nResult for Test(createJobTestWithOnlyRequiredFields): " + jobsPage.toastText + "\n");
+        System.out.println("Result for Test(createJobTestWithOnlyRequiredFields): " + jobsPage.toastText + "\n");
     }
 
 
@@ -53,7 +53,7 @@ public class JobsPageTest extends BaseTest {
         JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
         jobsPage.deleteJob(jobName);
         Assert.assertTrue(jobsPage.toastText.contains("Job is deleted"));
-        System.out.println("\nResult for Test(deleteJobTest): " + jobName
+        System.out.println("Result for Test(deleteJobTest): " + jobName
                 + jobsPage.toastText +"\n");
     }
 
@@ -70,7 +70,7 @@ public class JobsPageTest extends BaseTest {
         JobsPage jobsPage = PageFactory.initElements(driver, JobsPage.class);
         jobsPage.doNotCreateJobWithMissingRequiredFields(jobPost, employmentType, department, officeLocation, date);
         Assert.assertTrue(jobsPage.toastText.contains("form cannot be completed"));
-        System.out.println("\nResult for Test(doNotCreateJobWithMissingRequiredFieldsTest): "
+        System.out.println("Result for Test(doNotCreateJobWithMissingRequiredFieldsTest): "
                 + jobsPage.toastText +"(Missing required fields)\n");
     }
 
