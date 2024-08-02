@@ -104,9 +104,10 @@ public class JobsPage extends WebPage {
         super(driver);
     }
 
-    public void createJobPostWithAllAvailableFields(String jobPost, String qualificationLevel, String employmentType, String department,
-                                                    String minSalary, String maxSalary, String officeLocation, String date,
-                                                    String recruiterName, String country, String cityName, String skill, String sampleText) {
+    public void createJobPostWithAllAvailableFields(String jobPost, String qualificationLevel, String employmentType,
+                                                    String department, String minSalary, String maxSalary,
+                                                    String officeLocation, String date, String recruiterName,
+                                                    String country, String cityName, String skill, String sampleText) {
         expandSideBarIcon.click();
         jobsModule.click();
         createButton.click();
@@ -232,7 +233,8 @@ public class JobsPage extends WebPage {
         chooseFromList(listOfStatusFilters, status);
         applyFiltersButton.click();
         pause(2);
-        System.out.println("Search Results under searchJobByStatus Test, For " + status + " jobs: " + totalNumberOfJobsFound.getText() + "\n");
+        System.out.println("Search Results under searchJobByStatus Test, No. of " + status +
+                            " jobs: " + totalNumberOfJobsFound.getText() + "\n");
         pause(5);
     }
 
@@ -246,7 +248,8 @@ public class JobsPage extends WebPage {
         chooseFromList(listOfAllFilters, department);
         applyFiltersButton.click();
         pause(2);
-        System.out.println("Search Results under searchJobByDepartment Test, For " + department + " department: " + totalNumberOfJobsFound.getText() + "\n");
+        System.out.println("Search Results under searchJobByDepartment Test, For " + department +
+                            " department: " + totalNumberOfJobsFound.getText() + "\n");
         pause(5);
     }
 
@@ -260,7 +263,8 @@ public class JobsPage extends WebPage {
         chooseFromList(listOfAllFilters, projectName);
         applyFiltersButton.click();
         pause(2);
-        System.out.println("Search Results under searchJobByProjectName Test, For " + projectName + " project: " + totalNumberOfJobsFound.getText() + "\n");
+        System.out.println("Search Results under searchJobByProjectName Test, For " + projectName +
+                            " project: " + totalNumberOfJobsFound.getText() + "\n");
         pause(5);
     }
 
@@ -274,7 +278,8 @@ public class JobsPage extends WebPage {
         chooseFromList(listOfAllFilters, recruiterName);
         applyFiltersButton.click();
         pause(2);
-        System.out.println("Search Results under searchJobByRecruiterName Test, For " + recruiterName + ": " + totalNumberOfJobsFound.getText() + "\n");
+        System.out.println("Search Results under searchJobByRecruiterName Test, For " + recruiterName +
+                            ": " + totalNumberOfJobsFound.getText() + "\n");
         pause(5);
     }
 
